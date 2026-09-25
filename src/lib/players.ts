@@ -1,0 +1,728 @@
+export type Player = {
+  id: string;
+  name: string;
+  pos: string[]; // normalized filter keys
+  primary: string; // display position
+  secondary?: string;
+  age: number;
+  gradYear: number;
+  city: string;
+  state: string; // 2-letter
+  school: string;
+  travel: string;
+  height: string;
+  weight: number;
+  bats: "R" | "L" | "S";
+  throws: "R" | "L";
+  metrics: {
+    maxVelo?: number;
+    sixty?: number;
+    exitVelo?: number;
+    popTime?: number;
+  };
+  gpa: number;
+  status: "Actively looking" | "Open to offers";
+  headline: string;
+  bio: string[];
+  accolades: string[];
+  coachNote: { quote: string; author: string; role: string };
+  image: string;
+  cover: string;
+  gallery: string[];
+  video: string;
+  featured?: boolean;
+  memberSince: string;
+};
+
+const px = (id: number, crop = false) =>
+  crop
+    ? `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1240&w=860`
+    : `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=1400`;
+
+export const POSITION_FILTERS = [
+  "RHP",
+  "LHP",
+  "C",
+  "1B",
+  "2B",
+  "3B",
+  "SS",
+  "OF",
+  "UTIL",
+] as const;
+
+export const POSITION_OPTIONS = [
+  "Right-Handed Pitcher (RHP)",
+  "Left-Handed Pitcher (LHP)",
+  "Catcher (C)",
+  "First Base (1B)",
+  "Second Base (2B)",
+  "Third Base (3B)",
+  "Shortstop (SS)",
+  "Outfield (OF)",
+  "Corner Infield (1B/3B)",
+  "Middle Infield (2B/SS)",
+  "Utility (Multi-position)",
+];
+
+export const US_STATES: { abbr: string; name: string }[] = [
+  { abbr: "AL", name: "Alabama" },
+  { abbr: "AZ", name: "Arizona" },
+  { abbr: "AR", name: "Arkansas" },
+  { abbr: "CA", name: "California" },
+  { abbr: "CO", name: "Colorado" },
+  { abbr: "CT", name: "Connecticut" },
+  { abbr: "DE", name: "Delaware" },
+  { abbr: "FL", name: "Florida" },
+  { abbr: "GA", name: "Georgia" },
+  { abbr: "ID", name: "Idaho" },
+  { abbr: "IL", name: "Illinois" },
+  { abbr: "IN", name: "Indiana" },
+  { abbr: "IA", name: "Iowa" },
+  { abbr: "KS", name: "Kansas" },
+  { abbr: "KY", name: "Kentucky" },
+  { abbr: "LA", name: "Louisiana" },
+  { abbr: "ME", name: "Maine" },
+  { abbr: "MD", name: "Maryland" },
+  { abbr: "MA", name: "Massachusetts" },
+  { abbr: "MI", name: "Michigan" },
+  { abbr: "MN", name: "Minnesota" },
+  { abbr: "MS", name: "Mississippi" },
+  { abbr: "MO", name: "Missouri" },
+  { abbr: "MT", name: "Montana" },
+  { abbr: "NE", name: "Nebraska" },
+  { abbr: "NV", name: "Nevada" },
+  { abbr: "NH", name: "New Hampshire" },
+  { abbr: "NJ", name: "New Jersey" },
+  { abbr: "NM", name: "New Mexico" },
+  { abbr: "NY", name: "New York" },
+  { abbr: "NC", name: "North Carolina" },
+  { abbr: "ND", name: "North Dakota" },
+  { abbr: "OH", name: "Ohio" },
+  { abbr: "OK", name: "Oklahoma" },
+  { abbr: "OR", name: "Oregon" },
+  { abbr: "PA", name: "Pennsylvania" },
+  { abbr: "RI", name: "Rhode Island" },
+  { abbr: "SC", name: "South Carolina" },
+  { abbr: "SD", name: "South Dakota" },
+  { abbr: "TN", name: "Tennessee" },
+  { abbr: "TX", name: "Texas" },
+  { abbr: "UT", name: "Utah" },
+  { abbr: "VT", name: "Vermont" },
+  { abbr: "VA", name: "Virginia" },
+  { abbr: "WA", name: "Washington" },
+  { abbr: "WV", name: "West Virginia" },
+  { abbr: "WI", name: "Wisconsin" },
+  { abbr: "WY", name: "Wyoming" },
+];
+
+export const HIGHLIGHT_VIDEO =
+  "https://videos.pexels.com/video-files/2430988/2430988-uhd_3840_2160_24fps.mp4";
+
+export const players: Player[] = [
+  {
+    id: "mason-cole",
+    name: "Mason Cole",
+    pos: ["RHP"],
+    primary: "Right-Handed Pitcher",
+    age: 17,
+    gradYear: 2026,
+    city: "Dallas",
+    state: "TX",
+    school: "Highland Park HS",
+    travel: "Texas Scout Team 17U",
+    height: "6'3\"",
+    weight: 195,
+    bats: "R",
+    throws: "R",
+    metrics: { maxVelo: 92, sixty: 7.02, exitVelo: 91 },
+    gpa: 3.8,
+    status: "Actively looking",
+    headline: "Low-90s heater, three-pitch mix, and a mound presence well beyond seventeen.",
+    bio: [
+      "I have been starting on varsity since my sophomore year and take pride in attacking the zone early. My four-seam sits 88–91 and has touched 92 this spring, with a changeup that has become a true out pitch against left-handed hitters.",
+      "Off the field I hold a 3.8 GPA with a focus on biomedical sciences. I want a program that competes in June and takes the classroom just as seriously. I am ready to contribute the day I arrive.",
+    ],
+    accolades: [
+      "2025 All-District 11-5A First Team",
+      "Perfect Game Preseason All-American — Honorable Mention",
+      "Tournament MVP — North Texas Invitational (14 K, 0 BB)",
+      "2024 Area Code tryout selection",
+    ],
+    coachNote: {
+      quote:
+        "Mason is the most prepared young arm I have coached. He holds runners, fields his position, and the ball explodes on hitters.",
+      author: "R. Delgado",
+      role: "Pitching Coach, Texas Scout Team",
+    },
+    image: px(17723990, true),
+    cover: px(17723994),
+    gallery: [px(36780551), px(8492242), px(2475108)],
+    video: HIGHLIGHT_VIDEO,
+    featured: true,
+    memberSince: "Jan 2026",
+  },
+  {
+    id: "elijah-brooks",
+    name: "Elijah Brooks",
+    pos: ["SS"],
+    primary: "Shortstop",
+    age: 16,
+    gradYear: 2027,
+    city: "Atlanta",
+    state: "GA",
+    school: "Westlake HS",
+    travel: "East Cobb Astros 16U",
+    height: "6'0\"",
+    weight: 176,
+    bats: "S",
+    throws: "R",
+    metrics: { sixty: 6.71, exitVelo: 94, maxVelo: 86 },
+    gpa: 3.9,
+    status: "Actively looking",
+    headline: "Switch-hitting shortstop with 6.7 speed and hands that make hard plays look routine.",
+    bio: [
+      "Speed changes games and I built my game around it — 6.71 in the sixty, 39 stolen bases last summer, and first-step reads that let me stay in the six-hole spot defensively. I hit from both sides and drive gaps when the count allows.",
+      "I carry a 3.9 GPA with AP coursework and I am looking for a program with a real development culture. Film, data, reps — I want all of it.",
+    ],
+    accolades: [
+      "2025 Georgia 6A All-Region",
+      "East Cobb Astros — gold medal, WWBA 16U pool play",
+      "Perfect Game 16U showcase Top Prospect Team",
+      "Region stolen base leader (39 SB / 41 ATT)",
+    ],
+    coachNote: {
+      quote:
+        "Elijah plays the game like it is taunting him. The range is real, the arm is honest, and the motor never shuts off.",
+      author: "T. Holloway",
+      role: "Head Coach, East Cobb Astros 16U",
+    },
+    image: px(32278401, true),
+    cover: px(34087592),
+    gallery: [px(7899295, true), px(17724018), px(8786095)],
+    video: HIGHLIGHT_VIDEO,
+    featured: true,
+    memberSince: "Nov 2025",
+  },
+  {
+    id: "diego-ramirez",
+    name: "Diego Ramirez",
+    pos: ["C"],
+    primary: "Catcher",
+    age: 17,
+    gradYear: 2026,
+    city: "Phoenix",
+    state: "AZ",
+    school: "Brophy College Prep",
+    travel: "AZ Firecats 17U",
+    height: "5'11\"",
+    weight: 192,
+    bats: "R",
+    throws: "R",
+    metrics: { popTime: 1.89, exitVelo: 95, maxVelo: 83 },
+    gpa: 3.5,
+    status: "Actively looking",
+    headline: "A 1.89 pop behind the plate and a bat that catches up to velocity anywhere.",
+    bio: [
+      "Catching is a leadership position and I treat it that way — I call my own games, I know every arm on our staff, and my pitchers trust me with a full count and the game on the line. Best verified pop time: 1.89.",
+      "At the plate I hit .342 with 11 doubles this spring. I am looking for a program where I can compete for innings from day one and study alongside a kinesiology program.",
+    ],
+    accolades: [
+      "2025 6A Premier Region — Gold Glove (C)",
+      "Sub-2.0 pop times at three consecutive showcases",
+      "AZ Firecats team captain",
+      "Slugged .531 across 42 spring games",
+    ],
+    coachNote: {
+      quote:
+        "Diego erases the running game and saves two runs a week with his glove alone. He is the backbone of this roster.",
+      author: "M. Okafor",
+      role: "Head Coach, AZ Firecats",
+    },
+    image: px(30848013, true),
+    cover: px(7825369),
+    gallery: [px(28964175), px(12116429), px(8312464)],
+    video: HIGHLIGHT_VIDEO,
+    featured: true,
+    memberSince: "Feb 2026",
+  },
+  {
+    id: "jackson-reed",
+    name: "Jackson Reed",
+    pos: ["LHP"],
+    primary: "Left-Handed Pitcher",
+    age: 18,
+    gradYear: 2025,
+    city: "Nashville",
+    state: "TN",
+    school: "Montgomery Bell Academy",
+    travel: "Midwest Scout — TN",
+    height: "6'4\"",
+    weight: 208,
+    bats: "L",
+    throws: "L",
+    metrics: { maxVelo: 89, sixty: 7.3, exitVelo: 88 },
+    gpa: 3.6,
+    status: "Open to offers",
+    headline: "Physical 6'4\" lefty whose breaking ball grades out as a weapon against both sides.",
+    bio: [
+      "Left-handed pitching finds jobs, and I have spent three years making sure mine is worth paying attention to. Fastball 86–89 from a high three-quarter slot, plus a sweeper that hitters have barreled exactly twice this season.",
+      "I graduated in May and am wide open geographically. Redshirt, JUCO route, or a four-year — I want the right development plan more than the right logo.",
+    ],
+    accolades: [
+      "2025 TSSAA Division II-AA All-State",
+      "1.94 ERA, 78 K in 61.1 IP (senior spring)",
+      "Perfect Game National Showcase participant",
+      "Perfect Game 17U WWBA All-Tournament Team",
+    ],
+    coachNote: {
+      quote:
+        "Jackson competes like every start is an audition — because to him, it is. College hitters will not enjoy facing that breaker.",
+      author: "S. Whitworth",
+      role: "Recruiting Coordinator, MBA Baseball",
+    },
+    image: px(38910207, true),
+    cover: px(36780543),
+    gallery: [px(17724027), px(18588553, true), px(8491918)],
+    video: HIGHLIGHT_VIDEO,
+    featured: true,
+    memberSince: "Mar 2026",
+  },
+  {
+    id: "noah-kim",
+    name: "Noah Kim",
+    pos: ["OF"],
+    primary: "Center Fielder",
+    age: 16,
+    gradYear: 2027,
+    city: "Sacramento",
+    state: "CA",
+    school: "Jesuit HS",
+    travel: "NorCal Marauders 16U",
+    height: "5'10\"",
+    weight: 165,
+    bats: "L",
+    throws: "L",
+    metrics: { sixty: 6.58, exitVelo: 90, maxVelo: 84 },
+    gpa: 4.0,
+    status: "Actively looking",
+    headline: "6.58 wheels in center field, a .400 OBP, and a swing built for the top of a lineup.",
+    bio: [
+      "My job is simple: get on base and take away hits. A verified 6.58 sixty translates directly to center field range and pressure on every ground ball I get down the line.",
+      "Straight-A student headed toward an engineering track. I am early in my recruiting clock and open to conversations anywhere in the country.",
+    ],
+    accolades: [
+      "2025 Delta League First Team (as a sophomore)",
+      "Perfect Game Underclass All-American Games selection",
+      "Team USA 16U NTIS regional invitee",
+      "Career .402 on-base percentage across 96 games",
+    ],
+    coachNote: {
+      quote:
+        "Noah does the little things at a professional pace. Coaches who value OBP and defense will find him quickly.",
+      author: "J. Tanabe",
+      role: "Head Coach, NorCal Marauders",
+    },
+    image: px(18618010, true),
+    cover: px(28670355),
+    gallery: [px(9845418, true), px(8785988), px(32050151)],
+    video: HIGHLIGHT_VIDEO,
+    memberSince: "Dec 2025",
+  },
+  {
+    id: "landon-pierce",
+    name: "Landon Pierce",
+    pos: ["1B"],
+    primary: "First Base",
+    age: 17,
+    gradYear: 2026,
+    city: "Chicago",
+    state: "IL",
+    school: "St. Laurence HS",
+    travel: "Chicago Elite 17U",
+    height: "6'2\"",
+    weight: 212,
+    bats: "R",
+    throws: "R",
+    metrics: { exitVelo: 99, sixty: 7.2, maxVelo: 84 },
+    gpa: 3.4,
+    status: "Open to offers",
+    headline: "6'2\", 212, and 99 off the bat. The middle-of-the-order force who punishes mistakes.",
+    bio: [
+      "I hit the ball hard and I hit it often — 14 home runs last summer including two grand slams in bracket play. My exit velocity peaked at 99 mph at the Strike Zone showcase in February.",
+      "I take ground balls every single day because first base is not a parking spot for a bat — I want to save errors the way I create runs. Business major with a 3.4 GPA.",
+    ],
+    accolades: [
+      "2025 Chicago Catholic League Player of the Year finalist",
+      "14 HR / 47 RBI — 2025 summer circuit",
+      "99 mph peak exit velocity (TrackMan verified)",
+      "Two-time CCL All-Conference",
+    ],
+    coachNote: {
+      quote:
+        "Landon runs a professional batting practice every day. When he stays through the middle of the field, the ball travels.",
+      author: "D. Kaczmarek",
+      role: "Hitting Coordinator, Chicago Elite",
+    },
+    image: px(5184727, true),
+    cover: px(32369040),
+    gallery: [px(5184722, true), px(17724038), px(8786025)],
+    video: HIGHLIGHT_VIDEO,
+    memberSince: "Jan 2026",
+  },
+  {
+    id: "cam-turner",
+    name: "Cam Turner",
+    pos: ["3B"],
+    primary: "Third Base",
+    age: 18,
+    gradYear: 2025,
+    city: "Charlotte",
+    state: "NC",
+    school: "Providence Day School",
+    travel: "Carolina Knights 18U",
+    height: "6'1\"",
+    weight: 195,
+    bats: "R",
+    throws: "R",
+    metrics: { exitVelo: 96, maxVelo: 87, sixty: 6.9 },
+    gpa: 3.7,
+    status: "Actively looking",
+    headline: "A plus arm across the diamond and a polished right-handed swing that stays in the zone.",
+    bio: [
+      "The hot corner is about fearlessness and first-step quickness — I graded plus or better on infield defense at all four showcases I attended in 2025. Arm strength across the diamond clocked at 87 mph.",
+      "My swing is built on plate discipline: more walks than strikeouts as a senior. I graduated with honors and I am immediately available to the right program.",
+    ],
+    accolades: [
+      "2025 NCISAA 4A All-State",
+      "Perfect Game 18U showcase — top infield velo (87 mph)",
+      "Career .389 OBP with 61 BB / 48 K",
+      "Providence Day Scholar-Athlete Award",
+    ],
+    coachNote: {
+      quote:
+        "Cam defends like a shortstop playing third. His internal clock on slow rollers is the best I have seen in fifteen years.",
+      author: "D. Whitfield",
+      role: "Head Coach, Carolina Knights 18U",
+    },
+    image: px(34100142, true),
+    cover: px(14281534),
+    gallery: [px(34100135, true), px(28964275), px(8534557, true)],
+    video: HIGHLIGHT_VIDEO,
+    memberSince: "Apr 2026",
+  },
+  {
+    id: "wyatt-sullivan",
+    name: "Wyatt Sullivan",
+    pos: ["RHP"],
+    primary: "Right-Handed Pitcher",
+    age: 16,
+    gradYear: 2027,
+    city: "Tampa",
+    state: "FL",
+    school: "Plant HS",
+    travel: "Florida Burn 16U",
+    height: "6'0\"",
+    weight: 180,
+    bats: "R",
+    throws: "R",
+    metrics: { maxVelo: 88, sixty: 7.1, exitVelo: 87 },
+    gpa: 3.7,
+    status: "Open to offers",
+    headline: "Sixteen years old, already touching 88, and still growing into the frame.",
+    bio: [
+      "I am one of the youngest arms on the circuit and I am happy to be judged on stuff instead of birth certificates: fastball 85–88 with late arm-side run, and a changeup I trust in any count.",
+      "Projectable, coachable, and fully healthy — no innings restrictions, no arm history. Looking for a program that develops velocity and command together.",
+    ],
+    accolades: [
+      "88 mph at 16 — Florida Burn program record for class",
+      "2025 Perfect Game 16U WWBA All-Tournament",
+      "Plant HS Pitcher of the Year (sophomore season)",
+      "National Honor Society member",
+    ],
+    coachNote: {
+      quote:
+        "Wyatt is a blank canvas with an 88-mph brush. Whatever college pitching coach gets him inherits a future Friday guy.",
+      author: "A. Ferreira",
+      role: "Pitching Coordinator, Florida Burn",
+    },
+    image: px(30848015, true),
+    cover: px(16547083),
+    gallery: [px(8492238), px(11808474), px(36780551)],
+    video: HIGHLIGHT_VIDEO,
+    memberSince: "Feb 2026",
+  },
+  {
+    id: "adrian-castillo",
+    name: "Adrian Castillo",
+    pos: ["2B"],
+    primary: "Second Base",
+    age: 17,
+    gradYear: 2026,
+    city: "San Diego",
+    state: "CA",
+    school: "Cathedral Catholic HS",
+    travel: "SoCal Dirtbags 17U",
+    height: "5'9\"",
+    weight: 162,
+    bats: "L",
+    throws: "R",
+    metrics: { sixty: 6.64, exitVelo: 89, maxVelo: 83 },
+    gpa: 3.6,
+    status: "Actively looking",
+    headline: "6.64 speed and a left-handed bat that turns every at-bat into a problem for defenses.",
+    bio: [
+      "Undersized has never meant underpowered. I run a 6.64, turn double plays with quick transfer, and led my summer club in on-base percentage from the leadoff spot.",
+      "I want a program that values pressure baseball. Pre-law track, 3.6 GPA, fluent in English and Spanish — comfortable leading a dugout in either.",
+    ],
+    accolades: [
+      "2025 Western League First Team",
+      "SoCal Dirtbags — 31 SB summer circuit leader",
+      "Perfect Game California Showcase Top Prospect List",
+      "89 mph exit velocity (verified, wood bat)",
+    ],
+    coachNote: {
+      quote:
+        "Adrian is the toughest out in our lineup and the smartest defender on our infield. Do not measure the height — measure the tape.",
+      author: "R. Cisneros",
+      role: "Manager, SoCal Dirtbags",
+    },
+    image: px(38229156, true),
+    cover: px(34087592),
+    gallery: [px(9845420, true), px(11950075), px(7899279, true)],
+    video: HIGHLIGHT_VIDEO,
+    memberSince: "Mar 2026",
+  },
+  {
+    id: "tyler-boone",
+    name: "Tyler Boone",
+    pos: ["OF", "RHP", "UTIL"],
+    primary: "Outfielder",
+    secondary: "Right-Handed Pitcher",
+    age: 17,
+    gradYear: 2025,
+    city: "Denver",
+    state: "CO",
+    school: "Cherry Creek HS",
+    travel: "Colorado Slammers 18U",
+    height: "6'1\"",
+    weight: 188,
+    bats: "L",
+    throws: "L",
+    metrics: { exitVelo: 92, sixty: 6.8, maxVelo: 85 },
+    gpa: 3.3,
+    status: "Open to offers",
+    headline: "Left-left outfielder with gap power, a plus arm, and a pitcher's understanding of at-bats.",
+    bio: [
+      "I have two-way experience and a hitter's patience — I track spin better than most outfielders because I used to try to get people out with it. Corner outfield now, with a plus arm from right field (85 mph feedback to third).",
+      "Altitude has been my training partner: conditioning at 5,280 feet means sea-level tournaments feel like a gift. Journalism interest, fully open on geography.",
+    ],
+    accolades: [
+      "2025 Colorado 5A Honorable Mention",
+      "92 mph exit velocity — Slammers program top-3",
+      "Perfect Game Rocky Mountain Showcase invite",
+      "Dual-sport letterman (baseball / basketball)",
+    ],
+    coachNote: {
+      quote:
+        "Tyler sees the game from the mound and the box at once. College coaches looking for baseball IQ should not skip him.",
+      author: "K. Brandt",
+      role: "Head Coach, Colorado Slammers",
+    },
+    image: px(33258725, true),
+    cover: px(17723968),
+    gallery: [px(8320554), px(17723990, true), px(26619470)],
+    video: HIGHLIGHT_VIDEO,
+    memberSince: "May 2026",
+  },
+  {
+    id: "grayson-hale",
+    name: "Grayson Hale",
+    pos: ["C"],
+    primary: "Catcher",
+    age: 18,
+    gradYear: 2025,
+    city: "Columbus",
+    state: "OH",
+    school: "Upper Arlington HS",
+    travel: "Ohio Elite 18U National",
+    height: "6'0\"",
+    weight: 200,
+    bats: "R",
+    throws: "R",
+    metrics: { popTime: 1.95, exitVelo: 93, maxVelo: 84 },
+    gpa: 3.8,
+    status: "Open to offers",
+    headline: "A durable, detail-obsessed catcher who steals strikes and commands a staff.",
+    bio: [
+      "I caught 92% of my team's innings as a senior with zero passed balls in the postseason. Receiving grades have been my calling card — umpires give me the corners because I earn them.",
+      "I want a competitive JUCO or four-year program where catchers are developed, not just tolerated. Criminal justice interest, 3.8 GPA, class of 2025.",
+    ],
+    accolades: [
+      "2025 OCC Central Division First Team",
+      "Sub-2.0 verified pop time at two showcases",
+      "Zero passed balls — 2025 postseason run",
+      "Ohio Elite National roster two consecutive years",
+    ],
+    coachNote: {
+      quote:
+        "Grayson is the kind of catcher who makes a whole staff look better. He will be someone's captain inside of two seasons.",
+      author: "P. Nagy",
+      role: "Head Coach, Ohio Elite 18U",
+    },
+    image: px(34100130, true),
+    cover: px(16547085),
+    gallery: [px(7825369), px(12783350), px(28964175)],
+    video: HIGHLIGHT_VIDEO,
+    memberSince: "Apr 2026",
+  },
+  {
+    id: "marco-esposito",
+    name: "Marco Esposito",
+    pos: ["SS", "RHP", "UTIL"],
+    primary: "Shortstop",
+    secondary: "Right-Handed Pitcher",
+    age: 17,
+    gradYear: 2026,
+    city: "Queens",
+    state: "NY",
+    school: "Archbishop Molloy HS",
+    travel: "New York Nine 17U",
+    height: "6'0\"",
+    weight: 178,
+    bats: "R",
+    throws: "R",
+    metrics: { maxVelo: 87, sixty: 6.85, exitVelo: 91 },
+    gpa: 3.5,
+    status: "Actively looking",
+    headline: "A true two-way: 87 off the mound and smooth enough at short to make coaches choose.",
+    bio: [
+      "Give me innings at short or on the mound and I will win you games either way. Fastball 84–87 with a real slider, plus the actions and exchange of a natural middle infielder.",
+      "New York baseball makes you tough and I want to bring that edge somewhere that plays in big moments. Finance interest, 3.5 GPA.",
+    ],
+    accolades: [
+      "2025 CHSAA All-League (SS)",
+      "New York Nine two-way tournament MVP",
+      "87 mph fastball at Northeast Elite Showcase",
+      "Molloy Scholar-Athlete Honor Roll",
+    ],
+    coachNote: {
+      quote:
+        "Marco has major-league bloodlines in his mannerisms and a work ethic that is entirely his own. Two-way players this clean are rare.",
+      author: "V. Romano",
+      role: "Director, New York Nine",
+    },
+    image: px(34100143, true),
+    cover: px(32369040),
+    gallery: [px(2475108), px(8491918), px(18618012)],
+    video: HIGHLIGHT_VIDEO,
+    memberSince: "Jan 2026",
+  },
+  {
+    id: "beau-whitaker",
+    name: "Beau Whitaker",
+    pos: ["LHP"],
+    primary: "Left-Handed Pitcher",
+    age: 17,
+    gradYear: 2026,
+    city: "Baton Rouge",
+    state: "LA",
+    school: "Catholic HS",
+    travel: "Louisiana Knights 17U",
+    height: "6'1\"",
+    weight: 190,
+    bats: "L",
+    throws: "L",
+    metrics: { maxVelo: 88, sixty: 7.4, exitVelo: 86 },
+    gpa: 3.9,
+    status: "Open to offers",
+    headline: "A strike-throwing lefty from Baton Rouge with a four-pitch plan and a 1.40 ERA.",
+    bio: [
+      "Left-handed, durable, and precise — I walked nine hitters across 55 innings this spring while striking out 71. My strength is sequencing: I know what pitch two beats pitch one.",
+      "Academics matter to me as much as scouting reports — 3.9 GPA and a deep interest in sports medicine. Open nationwide.",
+    ],
+    accolades: [
+      "2025 District 5-5A Pitcher of the Year",
+      "1.40 ERA / 0.96 WHIP (junior spring)",
+      "Louisiana Knights Top Pitcher Award",
+      "Perfect Game Gulf Coast All-Tournament",
+    ],
+    coachNote: {
+      quote:
+        "Beau is a plan with a left arm. College hitters chase his changeup by the second at-bat like clockwork.",
+      author: "J. Leblanc",
+      role: "Head Coach, Louisiana Knights",
+    },
+    image: px(18588553, true),
+    cover: px(16547083),
+    gallery: [px(8492242), px(36780543), px(8786095)],
+    video: HIGHLIGHT_VIDEO,
+    memberSince: "Dec 2025",
+  },
+  {
+    id: "jonah-walker",
+    name: "Jonah Walker",
+    pos: ["OF"],
+    primary: "Center Fielder",
+    age: 16,
+    gradYear: 2027,
+    city: "Seattle",
+    state: "WA",
+    school: "O'Dea HS",
+    travel: "Northwest Naturals 16U",
+    height: "5'11\"",
+    weight: 168,
+    bats: "S",
+    throws: "R",
+    metrics: { sixty: 6.62, exitVelo: 90, maxVelo: 82 },
+    gpa: 3.7,
+    status: "Actively looking",
+    headline: "Switch-hitting center fielder with elite routes and a bat that plays from either side.",
+    bio: [
+      "I patrol center field for one of the best 16U programs in the Northwest and I take it personally when a ball drops. 6.62 speed gets me to the gaps; the reads get me there early.",
+      "Switch-hitting since age ten — my left-handed swing produces more lift, my right one controls the zone. Marine biology fascination, 3.7 GPA, wide open on schools.",
+    ],
+    accolades: [
+      "2025 Metro League First Team (sophomore)",
+      "Northwest Naturals Defensive Player of the Year",
+      "Perfect Game Pacific Northwest Showcase standout",
+      "90 mph exit velocity from both sides of the plate",
+    ],
+    coachNote: {
+      quote:
+        "Jonah is the best defensive sixteen-year-old I have coached in twenty-two seasons, and the bat is catching up fast.",
+      author: "C. Eriksen",
+      role: "Founder, Northwest Naturals",
+    },
+    image: px(20745459, true),
+    cover: px(28670355),
+    gallery: [px(7899295, true), px(32050151), px(34100135, true)],
+    video: HIGHLIGHT_VIDEO,
+    memberSince: "Feb 2026",
+  },
+];
+
+export function getPlayer(id: string) {
+  return players.find((p) => p.id === id);
+}
+
+export function similarPlayers(player: Player, count = 3): Player[] {
+  const scored = players
+    .filter((p) => p.id !== player.id)
+    .map((p) => ({
+      p,
+      score:
+        (p.pos.some((x) => player.pos.includes(x)) ? 2 : 0) +
+        (p.state === player.state ? 1 : 0) +
+        (Math.abs(p.age - player.age) <= 1 ? 1 : 0),
+    }))
+    .sort((a, b) => b.score - a.score);
+  return scored.slice(0, count).map((s) => s.p);
+}
+
+export const REGISTRY_STATS = {
+  players: 1248,
+  coaches: 386,
+  states: 47,
+  invitesSent: 5210,
+};
